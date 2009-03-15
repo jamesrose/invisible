@@ -42,6 +42,10 @@ describe "routing" do
       get "/wildcard*" do
         render "wildcard"
       end
+      
+      get %w{/multiple1 /multiple2 } do
+        render "multiple"
+      end
     end
   end
   
@@ -99,5 +103,10 @@ describe "routing" do
   
   it "should allow wildcard in route" do
     @app.mock.get("/wildcard/something/else").body.should == "wildcard"
+  end
+  
+  it "should allow multiple routes for one action" do
+    @app.mock.get("/multiple1").body.should == "multiple"
+    @app.mock.get("/multiple2").body.should == "multiple"
   end
 end

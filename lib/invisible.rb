@@ -41,8 +41,10 @@ class Invisible
   #    # ...
   #  end
   #
-  def action(method, route, &block)
-    @actions << [method.to_s, build_route(@with * "/" + route), block]
+  def action(method, routes, &block)
+    routes.each do |route|
+      @actions << [method.to_s, build_route(@with * "/" + route), block]
+    end
   end
   HTTP_METHODS.each { |m| class_eval "def #{m}(r='/',&b); action('#{m}', r, &b) end" }
   
